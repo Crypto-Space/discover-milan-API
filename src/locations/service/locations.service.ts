@@ -1,6 +1,7 @@
 import { Model } from 'mongoose';
 import { BadRequestException, Inject, Injectable, InternalServerErrorException, Logger } from '@nestjs/common';
 import { LocationDto } from '../dto/location.dto';
+import { CreateLocationDto } from '../dto/create-location.dto';
 
 @Injectable()
 export class LocationsService {
@@ -27,6 +28,16 @@ export class LocationsService {
         throw new BadRequestException();
       }
       return location;
+    } catch ({ status, message }) {
+      this.#logger.error(`${status}, ${message}`);
+      throw new InternalServerErrorException();
+    }
+  }
+
+  async createLocation(input: CreateLocationDto): Promise<LocationDto> {
+    try {
+      const newLocation = new this.locationModel(input);
+      return newLocation.save();
     } catch ({ status, message }) {
       this.#logger.error(`${status}, ${message}`);
       throw new InternalServerErrorException();
