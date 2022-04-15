@@ -37,7 +37,7 @@ export class LocationsService {
   async createLocation(input: CreateLocationDto): Promise<LocationDto> {
     try {
       const newLocation = new this.locationModel(input);
-      return newLocation.save();
+      return await newLocation.save();
     } catch ({ status, message }) {
       this.#logger.error(`${status}, ${message}`);
       throw new InternalServerErrorException();
