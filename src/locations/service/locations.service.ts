@@ -1,20 +1,35 @@
 import { Model } from 'mongoose';
-import { Inject, Injectable } from '@nestjs/common';
-import { ILocation } from '../../model';
-import { locationData } from '../../config/mock';
+import { BadRequestException, Inject, Injectable, InternalServerErrorException, Logger } from '@nestjs/common';
+import { LocationDto } from '../dto/location.dto';
 
 @Injectable()
 export class LocationsService {
 
+  readonly #logger = new Logger(LocationsService.name);
+
   constructor(
-    @Inject('LOCATION_MODEL') private locationModel: Model<Location>
+    @Inject('LOCATION_MODEL') private locationModel: Model<LocationDto>
   ) {}
   
-  public getAll()  {
-    this.locationModel.find();
+  async getAll(): Promise<LocationDto[]> {
+    try {
+      return await this.locationModel.find();      
+    } catch ({ status, message }) {
+      this.#logger.error(`${status}, ${message}`);
+      throw new InternalServerErrorException();
+    }
   }
   
-  public getById(id: number) {
-    return locationData.find(location => location.id === id);
+  async getById(id: string): Promise<LocationDto> {
+    try {
+      const location = await this.locationModel.findOne({ _id: id });
+      if (!location) {
+        throw new BadRequestException();
+      }
+      return location;
+    } catch ({ status, message }) {
+      this.#logger.error(`${status}, ${message}`);
+      throw new InternalServerErrorException();
+    }
   }
 }

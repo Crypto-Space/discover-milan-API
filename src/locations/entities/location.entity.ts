@@ -1,6 +1,4 @@
-import { ILocation } from "../../model";
-
-export class Location implements ILocation {
+export class Location {
     id: number;
     name!: string;
     cityName!: string;
