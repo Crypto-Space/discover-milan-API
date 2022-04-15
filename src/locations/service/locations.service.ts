@@ -22,7 +22,7 @@ export class LocationsService {
   
   async getById(id: string): Promise<LocationDto> {
     try {
-      const location = await this.locationModel.findOne({ _id: id });
+      const location = await this.locationModel.findById(id);
       if (!location) {
         throw new BadRequestException();
       }
