@@ -1,7 +1,7 @@
-import { Controller, Get, Post, Body, Param, ParseIntPipe } from '@nestjs/common';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Controller, Get, Param, ParseIntPipe } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { ILocation } from 'src/model';
-import { LocationsService } from './locations.service';
+import { LocationsService } from './service/locations.service';
 
 @Controller('locations')
 export class LocationsController {
@@ -9,7 +9,7 @@ export class LocationsController {
 
   @Get()
   @ApiTags('Locations')
-  private getAllLocations(): ILocation[] {
+  private getAllLocations() {
     return this.locationsService.getAll();
   }
   

@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { LocationsService } from './locations.service';
+import { LocationsService } from './service/locations.service';
 import { LocationsController } from './locations.controller';
 
 @Module({
