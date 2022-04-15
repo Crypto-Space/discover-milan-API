@@ -4,6 +4,7 @@
 
 # Config
 .env
+is_not_env.ts
 
 # Logs
 logs
