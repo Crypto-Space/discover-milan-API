@@ -35,7 +35,7 @@ export class LocationsController {
   @ApiBody({ type: UpdateLocationDto })
   @Put(':id')
   @ApiTags('Locations')
-  async putLocation(@Param('id') id: string, @Body() input: UpdateLocationDto) {
+  async putLocation(@Param('id') id: string, @Body() input: UpdateLocationDto): Promise<LocationDto> {
     return await this.locationsService.updateLocation(id, input);
   }
 }
