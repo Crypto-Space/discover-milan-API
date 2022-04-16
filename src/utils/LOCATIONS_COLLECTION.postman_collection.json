@@ -1,0 +1,221 @@
+{
+	"info": {
+		"_postman_id": "8ed1fe05-cf29-42d0-8e67-823967e1923d",
+		"name": "LOCATIONS_COLLECTION",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET",
+			"item": [
+				{
+					"name": "ALL DATA",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://locahost:{{PORT}}/locations/",
+							"protocol": "http",
+							"host": [
+								"locahost"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"locations",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET BY ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://locahost:{{PORT}}/locations/?id=625ad468fc9c567feeeb410c",
+							"protocol": "http",
+							"host": [
+								"locahost"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"locations",
+								""
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "625ad468fc9c567feeeb410c"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "POST",
+			"item": [
+				{
+					"name": "INSERT ONE DATA",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Duomo di Milano\",\n  \"description\": \"Il duomo si trova al centro di Milano\",\n  \"coordinates\": {\n    \"latitude\": 1,\n    \"longitude\": 2\n  },\n  \"imageNames\": [\n    \"link_1.png\",\n    \"link_2.png\"\n  ],\n  \"link\": \"https://www.google.it\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://locahost:{{PORT}}/locations/",
+							"protocol": "http",
+							"host": [
+								"locahost"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"locations",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "INSERT MULTIPLE DATA",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"name\": \"Duomo di Milano\",\n        \"description\": \"Il duomo si trova al centro di Milano\",\n        \"coordinates\": {\n            \"latitude\": 1,\n            \"longitude\": 2\n        },\n        \"imageNames\": [\n            \"link_1.png\",\n            \"link_2.png\"\n        ],\n        \"link\": \"https://www.google.it\"\n    },\n    {\n        \"name\": \"Duomo di Milano2 \",\n        \"description\": \"Il duomo si trova al centro di Milano\",\n        \"coordinates\": {\n            \"latitude\": 1,\n            \"longitude\": 2\n        },\n        \"imageNames\": [\n            \"link_1.png\",\n            \"link_2.png\"\n        ],\n        \"link\": \"https://www.google.it\"\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://locahost:{{PORT}}/locations/multipleData",
+							"protocol": "http",
+							"host": [
+								"locahost"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"locations",
+								"multipleData"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PUT",
+			"item": [
+				{
+					"name": "UPDATE DATA BY ID",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Duomo di Milano\",\n  \"description\": \"Il duomo si trova al centro di Milano\",\n  \"coordinates\": {\n    \"latitude\": 1,\n    \"longitude\": 2\n  },\n  \"imageNames\": [\n    \"link_1.png\",\n    \"link_2.png\"\n  ],\n  \"link\": \"https://www.google.it\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://locahost:{{PORT}}/locations/?id=625ad468fc9c567feeeb410c",
+							"protocol": "http",
+							"host": [
+								"locahost"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"locations",
+								""
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "625ad468fc9c567feeeb410c"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "DELETE",
+			"item": [
+				{
+					"name": "DELETE BY ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://locahost:{{PORT}}/locations/?id=625ad468fc9c567feeeb410c",
+							"protocol": "http",
+							"host": [
+								"locahost"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"locations",
+								""
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "625ad468fc9c567feeeb410c"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "PORT",
+			"value": "3001",
+			"type": "string"
+		}
+	]
+}
