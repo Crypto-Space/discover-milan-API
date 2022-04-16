@@ -53,4 +53,13 @@ export class LocationsService {
       throw new InternalServerErrorException();
     }
   }
+
+  async deleteLocation(id: string): Promise<LocationDto> {
+    try {
+      return await this.locationModel.findByIdAndDelete(id);
+    } catch ({ status, message }) {
+      this.#logger.error(`${status}, ${message}`);
+      throw new InternalServerErrorException();
+    }
+  }
 }
