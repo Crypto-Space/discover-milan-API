@@ -15,14 +15,14 @@ export class LocationsController {
   async getAllLocations(): Promise<LocationDto[]> {
     return await this.locationsService.getAll();
   }
-  
+
   @ApiResponse({ type: LocationDto })
   @Get(':id')
   @ApiTags('Locations')
   async getLocationById(@Param('id') id: string): Promise<LocationDto> {
     return await this.locationsService.getById(id);
   }
-  
+
   @ApiResponse({ type: LocationDto })
   @ApiBody({ type: CreateLocationDto })
   @Post()
@@ -32,10 +32,23 @@ export class LocationsController {
   }
 
   @ApiResponse({ type: LocationDto })
+  @ApiBody({ type: CreateLocationDto })
+  @Post('multipleData')
+  @ApiTags('Locations')
+  async postMultiLocation(
+    @Body() input: CreateLocationDto[],
+  ): Promise<LocationDto[]> {
+    return await this.locationsService.createMultiLocation(input);
+  }
+
+  @ApiResponse({ type: LocationDto })
   @ApiBody({ type: UpdateLocationDto })
   @Put(':id')
   @ApiTags('Locations')
-  async putLocation(@Param('id') id: string, @Body() input: UpdateLocationDto): Promise<LocationDto> {
+  async putLocation(
+    @Param('id') id: string,
+    @Body() input: UpdateLocationDto,
+  ): Promise<LocationDto> {
     return await this.locationsService.updateLocation(id, input);
   }
 
@@ -44,5 +57,5 @@ export class LocationsController {
   @ApiTags('Locations')
   async deleteLocation(@Param('id') id: string): Promise<LocationDto> {
     return await this.locationsService.deleteLocation(id);
-  } 
+  }
 }

@@ -6,22 +6,21 @@ import { UpdateLocationDto } from '../dto/update-location.dto';
 
 @Injectable()
 export class LocationsService {
-
   readonly #logger = new Logger(LocationsService.name);
 
   constructor(
-    @Inject('LOCATION_MODEL') private locationModel: Model<LocationDto>
+    @Inject('LOCATION_MODEL') private locationModel: Model<LocationDto>,
   ) {}
-  
+
   async getAll(): Promise<LocationDto[]> {
     try {
-      return await this.locationModel.find();      
+      return await this.locationModel.find();
     } catch ({ status, message }) {
       this.#logger.error(`${status}, ${message}`);
       throw new InternalServerErrorException();
     }
   }
-  
+
   async getById(id: string): Promise<LocationDto> {
     try {
       const location = await this.locationModel.findById(id);
@@ -45,9 +44,25 @@ export class LocationsService {
     }
   }
 
-  async updateLocation(id: string, input: UpdateLocationDto): Promise<LocationDto> {
+  async createMultiLocation(
+    input: CreateLocationDto[],
+  ): Promise<LocationDto[]> {
     try {
-      return await this.locationModel.findOneAndUpdate({ _id: id }, input, { returnOriginal: false });
+      return await this.locationModel.insertMany(input);
+    } catch ({ status, message }) {
+      this.#logger.error(`${status}, ${message}`);
+      throw new InternalServerErrorException();
+    }
+  }
+
+  async updateLocation(
+    id: string,
+    input: UpdateLocationDto,
+  ): Promise<LocationDto> {
+    try {
+      return await this.locationModel.findOneAndUpdate({ _id: id }, input, {
+        returnOriginal: false,
+      });
     } catch ({ status, message }) {
       this.#logger.error(`${status}, ${message}`);
       throw new InternalServerErrorException();
