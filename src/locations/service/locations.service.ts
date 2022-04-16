@@ -47,11 +47,7 @@ export class LocationsService {
 
   async updateLocation(id: string, input: UpdateLocationDto): Promise<LocationDto> {
     try {
-      const location = await this.locationModel.findOneAndUpdate({ _id: id }, input);
-      if (!location) {
-        throw new BadRequestException();
-      }
-      return location;
+      return await this.locationModel.findOneAndUpdate({ _id: id }, input, { returnOriginal: false });
     } catch ({ status, message }) {
       this.#logger.error(`${status}, ${message}`);
       throw new InternalServerErrorException();
