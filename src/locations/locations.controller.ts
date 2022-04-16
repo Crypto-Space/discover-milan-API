@@ -44,5 +44,5 @@ export class LocationsController {
   @ApiTags('Locations')
   async deleteLocation(@Param('id') id: string): Promise<LocationDto> {
     return await this.locationsService.deleteLocation(id);
-  }
+  } 
 }
