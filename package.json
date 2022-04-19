@@ -6,10 +6,13 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
+    "delete_dist": "rm -r ./dist",
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "nest start",
+    "start": "npm run delete_dist && npm run start:hot || npm run start:hot",
+    "start:hot": "nest build --webpack --webpackPath webpack-hmr.config.js --watch ",
+    "start:old": "rm -r ./dist && nest start || nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
@@ -49,13 +52,23 @@
     "eslint-plugin-prettier": "4.0.0",
     "jest": "27.2.5",
     "prettier": "2.3.2",
+<<<<<<< HEAD
+=======
+    "run-script-webpack-plugin": "0.0.11",
+>>>>>>> 4484ec81a17cb16383e63c204dfa91b644d88d0d
     "source-map-support": "0.5.20",
     "supertest": "6.1.3",
     "ts-jest": "27.0.3",
     "ts-loader": "9.2.3",
     "ts-node": "10.0.0",
     "tsconfig-paths": "3.10.1",
+<<<<<<< HEAD
     "typescript": "4.3.5"
+=======
+    "typescript": "4.3.5",
+    "webpack": "^5.72.0",
+    "webpack-node-externals": "3.0.0"
+>>>>>>> 4484ec81a17cb16383e63c204dfa91b644d88d0d
   },
   "jest": {
     "moduleFileExtensions": [
