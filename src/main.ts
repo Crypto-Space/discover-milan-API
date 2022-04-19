@@ -12,15 +12,10 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
-<<<<<<< HEAD
-
-  await app.listen(3001);
-=======
   await app.listen(3000);
   if (module.hot) {
     module.hot.accept();
     module.hot.dispose(() => app.close());
   }
->>>>>>> 4484ec81a17cb16383e63c204dfa91b644d88d0d
 }
 bootstrap();
