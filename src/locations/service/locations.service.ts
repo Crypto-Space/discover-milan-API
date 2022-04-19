@@ -3,7 +3,6 @@ import {
   BadRequestException,
   Inject,
   Injectable,
-  InternalServerErrorException,
   Logger,
   UseInterceptors,
 } from '@nestjs/common';
