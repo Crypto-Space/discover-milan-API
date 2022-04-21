@@ -10,6 +10,11 @@ export class CreateLocationDto {
   description: string;
   @ApiProperty({
     required: true,
+    example: "Piazza del Duomo"
+  })
+  address: string;
+  @ApiProperty({
+    required: true,
     example: { latitude: 1.0, longitude: 2.0 },
   })
   coordinates: { latitude: number; longitude: number };

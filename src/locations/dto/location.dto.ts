@@ -5,6 +5,8 @@ export class LocationDto {
     _id: string;
     @ApiProperty()
     name: string;
+    @ApiProperty()
+    address: string;
     @ApiProperty({ required: false })
     description: string;
     @ApiProperty()

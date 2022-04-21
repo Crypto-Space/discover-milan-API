@@ -1,7 +1,7 @@
 export class Location {
     id: number;
     name!: string;
-    cityName!: string;
+    address!: string;
     coordinates!: { latitude: number, longitude: number };
     description?: string;
     imageNames?: string[];
