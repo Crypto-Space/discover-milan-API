@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
-import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateLocationDto } from './dto/create-location.dto';
 import { LocationDto } from './dto/location.dto';
 import { UpdateLocationDto } from './dto/update-location.dto';
@@ -24,6 +24,7 @@ export class LocationsController {
 
   @ApiResponse({ type: LocationDto })
   @ApiBody({ type: CreateLocationDto })
+  @ApiBearerAuth()
   @Post()
   @ApiTags('Locations')
   async postLocation(@Body() input: CreateLocationDto): Promise<LocationDto> {
@@ -32,6 +33,7 @@ export class LocationsController {
 
   @ApiResponse({ type: LocationDto })
   @ApiBody({ type: CreateLocationDto })
+  @ApiBearerAuth()
   @Post('multipleData')
   @ApiTags('Locations')
   async postMultiLocation(
@@ -42,6 +44,7 @@ export class LocationsController {
 
   @ApiResponse({ type: LocationDto })
   @ApiBody({ type: UpdateLocationDto })
+  @ApiBearerAuth()
   @Put(':id')
   @ApiTags('Locations')
   async putLocation(
@@ -52,6 +55,7 @@ export class LocationsController {
   }
 
   @ApiResponse({ type: Boolean })
+  @ApiBearerAuth()
   @Delete(':id')
   @ApiTags('Locations')
   async deleteLocation(@Param('id') id: string): Promise<LocationDto> {
