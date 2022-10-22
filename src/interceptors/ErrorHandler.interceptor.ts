@@ -9,7 +9,7 @@ import {
   NestInterceptor,
   NotFoundException
 } from '@nestjs/common';
-import { Observable, throwError } from 'rxjs';
+import { EMPTY, Observable, of, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 @Injectable()
@@ -20,14 +20,17 @@ export class ErrorHandler implements NestInterceptor {
       catchError((error: HttpException) => {
         switch (error.name) {
           case BadRequestException.name:
-            return throwError(() => error);
+            this.#logger.error(`[BadRequestException] ${error.message}`);
+            return of(EMPTY);
           case InternalServerErrorException.name:
-            return throwError(() => error);
+            this.#logger.error(`[InternalServerErrorException] ${error.message}`);
+            return of(EMPTY);
           case NotFoundException.name:
-            return throwError(() => error);
+            this.#logger.error(`[NotFoundException] ${error.message}`);
+            return of(EMPTY);
           default:
-            this.#logger.error('Default Error!');
-            return throwError(() => error);
+            this.#logger.error(`[Default Error] ${error.message}`);
+            return of(EMPTY);
         }
       }),
     );
