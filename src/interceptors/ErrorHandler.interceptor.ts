@@ -15,7 +15,7 @@ import { catchError } from 'rxjs/operators';
 @Injectable()
 export class ErrorHandler implements NestInterceptor {
   readonly #logger = new Logger(ErrorHandler.name);
-  intercept(_: ExecutionContext, next: CallHandler<HttpException>): Observable<HttpException> {
+  intercept(_: ExecutionContext, next: CallHandler<HttpException>): Observable<any> {
     return next.handle().pipe(
       catchError((error: HttpException) => {
         switch (error.name) {
