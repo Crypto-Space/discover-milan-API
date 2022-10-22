@@ -7,7 +7,7 @@ import {
   InternalServerErrorException,
   Logger,
   NestInterceptor,
-  NotFoundException
+  NotFoundException,
 } from '@nestjs/common';
 import { EMPTY, Observable, of, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -15,7 +15,7 @@ import { catchError } from 'rxjs/operators';
 @Injectable()
 export class ErrorHandler implements NestInterceptor {
   readonly #logger = new Logger(ErrorHandler.name);
-  intercept(_: ExecutionContext, next: CallHandler<HttpException>): Observable<any> {
+  intercept(_: ExecutionContext, next: CallHandler<HttpException>): Observable<HttpException> {
     return next.handle().pipe(
       catchError((error: HttpException) => {
         switch (error.name) {
