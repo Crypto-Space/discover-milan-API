@@ -2,29 +2,32 @@ import {
   BadRequestException,
   CallHandler,
   ExecutionContext,
+  HttpException,
   Injectable,
   InternalServerErrorException,
   Logger,
   NestInterceptor,
+  NotFoundException
 } from '@nestjs/common';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class ErrorHandler implements NestInterceptor {
-  #logger = new Logger(ErrorHandler.name);
-  intercept(_: ExecutionContext, next: CallHandler): Observable<any> {
+  readonly #logger = new Logger(ErrorHandler.name);
+  intercept(_: ExecutionContext, next: CallHandler<HttpException>): Observable<any> {
     return next.handle().pipe(
-      catchError((error) => {
-        if (error instanceof BadRequestException) {
-          return throwError(() => new BadRequestException());
-        } else if (error instanceof InternalServerErrorException) {
-          return throwError(
-            () => new InternalServerErrorException(error.message),
-          );
-        } else {
-          this.#logger.error('Default Error!');
-          return throwError(() => error);
+      catchError((error: HttpException) => {
+        switch (error.name) {
+          case BadRequestException.name:
+            return throwError(() => error);
+          case InternalServerErrorException.name:
+            return throwError(() => error);
+          case NotFoundException.name:
+            return throwError(() => error);
+          default:
+            this.#logger.error('Default Error!');
+            return throwError(() => error);
         }
       }),
     );

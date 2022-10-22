@@ -1,17 +1,14 @@
 import { Model } from 'mongoose';
 import {
-  BadRequestException,
   Inject,
   Injectable,
   Logger,
-  UseInterceptors,
+  NotFoundException,
 } from '@nestjs/common';
 import { LocationDto } from '../dto/location.dto';
 import { CreateLocationDto } from '../dto/create-location.dto';
 import { UpdateLocationDto } from '../dto/update-location.dto';
-import { ErrorHandler } from 'src/interceptors/ErrorHandler.interceptor';
 
-@UseInterceptors(new ErrorHandler())
 @Injectable()
 export class LocationsService {
   readonly #logger = new Logger(LocationsService.name);
@@ -25,10 +22,10 @@ export class LocationsService {
   }
 
   async getById(id: string): Promise<LocationDto> {
-    const location = await this.locationModel.findById(id);
-    if (!location) {
-      throw new BadRequestException();
-    }
+    const location = await this.locationModel.findOne({ _id: id })
+    .catch((err) => {
+      throw new NotFoundException(`Location with id ${id} not found!`);
+    });
     return location;
   }
 
@@ -49,7 +46,7 @@ export class LocationsService {
   ): Promise<LocationDto> {
     return await this.locationModel.findOneAndUpdate({ _id: id }, input, {
       returnOriginal: false,
-    });
+    })
   }
 
   async deleteLocation(id: string): Promise<LocationDto> {
