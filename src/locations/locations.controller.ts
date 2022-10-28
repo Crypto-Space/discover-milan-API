@@ -20,7 +20,6 @@ export class LocationsController {
 
   @ApiResponse({ type: LocationDto })
   @Get(':id')
-  @ApiTags('Locations')
   async getLocationById(@Param('id') id: string): Promise<LocationDto> {
     return await this.locationsService.getById(id);
   }

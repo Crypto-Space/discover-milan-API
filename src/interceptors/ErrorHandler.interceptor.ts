@@ -9,7 +9,7 @@ import {
   NestInterceptor,
   NotFoundException,
 } from '@nestjs/common';
-import { EMPTY, Observable, of, throwError } from 'rxjs';
+import { EMPTY, Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 @Injectable()
